@@ -1,5 +1,4 @@
 #+TITLE: DMENU - Applied Patches
-#+AUTHOR: Sebastian Zierl
 #+DATE:  [2022-03-17] 
 
 :PROPERTIES:
@@ -31,4 +30,12 @@ Allows the ~height~ of the ~dmenu~ bar to be adjustet via the =-h= flag
 
 Adds an *additional* ~color scheme~ to [[id:0f0a3583-1efc-495b-b621-602382d9aba6][dmenu]] that is used to highlight the highlight the entries adjacent to the selection in effect making [[id:0f0a3583-1efc-495b-b621-602382d9aba6][dmenu]] more colorful
 
-** 
+** Numbers
+: STATUS: applied
+
+Small Patch that displays the *number of matched and total items* in the *top right corner* of [[id:0f0a3583-1efc-495b-b621-602382d9aba6][dmenu]] 
+
+** Password
+: STATUS: applied
+
+Replaces the input text with dots, basically allowing you to type out a password without prying eyes spying on you
