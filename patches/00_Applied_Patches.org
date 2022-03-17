@@ -51,3 +51,19 @@ Places [[id:0f0a3583-1efc-495b-b621-602382d9aba6][dmenu]] at the *center of the 
 Places available options and matches in a grid like pattern:
 + =-l= specifies the *number of lines*
 + =-g= specifies the *number of columns*
+
+** Border/Borderoption
+: STATUS: applied
+
+Allows the Placement of a Border around the [[id:0f0a3583-1efc-495b-b621-602382d9aba6][dmenu]] ~Window~
+Option =-bw= can be used to specify this. =0= means now *border*
+
+** XYZ
+: STATUS: applied
+
+Gives you more control placement of the [[id:0f0a3583-1efc-495b-b621-602382d9aba6][dmenu]] ~Window~
++ =-x= specifies the offset in ~x-Direction~
++ =-y= specifies the offset in ~y-Direction~
++ =-z= specifies the ~width~ of the Window (used to be =-w= but now conflicts with =-w= ~WindowID~)
++ =-b= if specified, the =-y= offset is calculated from the bottom
++ =-m= specifies the target monitor (=0= if not specified, meaning the ~default window~)
