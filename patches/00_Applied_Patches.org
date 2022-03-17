@@ -1,0 +1,34 @@
+#+TITLE: DMENU - Applied Patches
+#+AUTHOR: Sebastian Zierl
+#+DATE:  [2022-03-17] 
+
+:PROPERTIES:
+
+* Info
+
+An Overview of applied patches to [[id:0f0a3583-1efc-495b-b621-602382d9aba6][dmenu]] as well as their functionality
+
+* Patches
+
+** Dracula
+: STATUS: applied
+
+Simple Patch, just applies the ~Dracula Color Scheme~ to [[id:0f0a3583-1efc-495b-b621-602382d9aba6][Dmenu]]
+
+** Lineheight
+: STATUS: applied
+
+Allows the ~height~ of the ~dmenu~ bar to be adjustet via the =-h= flag
+
+*** Example
+
+#+begin_src shell
+  dmenu -h 30
+#+end_src
+
+** Morecolor
+: STATUS: applied
+
+Adds an *additional* ~color scheme~ to [[id:0f0a3583-1efc-495b-b621-602382d9aba6][dmenu]] that is used to highlight the highlight the entries adjacent to the selection in effect making [[id:0f0a3583-1efc-495b-b621-602382d9aba6][dmenu]] more colorful
+
+** 
