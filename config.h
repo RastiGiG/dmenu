@@ -13,12 +13,13 @@ static const char *colors[SchemeLast][2] = {
 	/*     fg         bg       */
 	[SchemeNorm] = { "#f8f8f2", "#050713" },
     /*[SchemeSel] = { "#ff79c6", "#282a36" },*/
-	[SchemeSel] = { "#282a36", "#ff79c6" },
+	/*[SchemeSel] = { "#282a36", "#ff79c6" },*/
+    [SchemeSel] = { "#ffd2ff", "#570025" },
     [SchemeSelHighlight] = { "#f8f8f2", "#263668" },
 	[SchemeNormHighlight] = { "#ffb86c", "#050713" },
 	[SchemeOut] = { "#000000", "#00ffff" },
     /*[SchemeMid] = { "#bd93f9", "#050713" },*/
-	[SchemeMid] = { "#bd93f9", "#050713" },
+	[SchemeMid] = { "#ff0095", "#050713" },
     [SchemeOutHighlight] = { "#ffb86c", "#00ffff" },
 };
 /* -l and -g options; controls number of lines and columns in grid if > 0 */
