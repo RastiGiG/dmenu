@@ -7,6 +7,13 @@
 
 An Overview of applied patches to [[id:0f0a3583-1efc-495b-b621-602382d9aba6][dmenu]] as well as their functionality
 
+** Applying the Patches
+
+~Patching~ is *easy* in *principle*, but you might run into errors that you have to *resolve manually*.
+#+begin_src shell
+  patch -p1 < [patchname].diff
+#+end_src
+
 * Patches
 
 ** Dracula
@@ -51,6 +58,11 @@ Places [[id:0f0a3583-1efc-495b-b621-602382d9aba6][dmenu]] at the *center of the 
 Places available options and matches in a grid like pattern:
 + =-l= specifies the *number of lines*
 + =-g= specifies the *number of columns*
+
+*** Gridnav
+: STATUS: applied
+
+This is an extension to the ~Grid~ that allows the ~navigation~ in ~grid form~ with the ~left~ and ~right~ ~keys~
 
 ** Border/Borderoption
 : STATUS: applied
