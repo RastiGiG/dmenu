@@ -1,5 +1,6 @@
 #+TITLE: DMENU - Applied Patches
 #+DATE:  [2022-03-17] 
+#+STARTUP: show2levels
 
 :PROPERTIES:
 
@@ -15,7 +16,6 @@ An Overview of applied patches to [[id:0f0a3583-1efc-495b-b621-602382d9aba6][dme
 #+end_src
 
 * Patches
-
 ** Dracula
 : STATUS: applied
 
@@ -32,6 +32,14 @@ Allows the ~height~ of the ~dmenu~ bar to be adjustet via the =-h= flag
   dmenu -h 30
 #+end_src
 
+** Lines Below Prompt
+: STATUS: applied
+
+Lines are drawn *below* the ~Prompt~ instead of next to it.
+*** Fullwidth Patch
+: STATUS: applied
+
+This *patch* makes sure *lines are not cut off* if the ~Prompt~ is to short and ~Dmenu~ tries to match the rest of the text
 ** Morecolor
 : STATUS: applied
 
@@ -47,6 +55,26 @@ Small Patch that displays the *number of matched and total items* in the *top ri
 
 Replaces the input text with dots, basically allowing you to type out a password without prying eyes spying on you
 
+** Preselect
+: STATUS: applied
+
+Allows you to ~preselect~ *one of the given items* by *giving a number* with the =-n= ~flag.~
+The *input list* is ~zero-based~ (ie: starts with =0=)
+
+** Printindex
+: STATUS: applied
+
+This patch allows ~dmenu~ to print out the ~zero-based index~ of *matched text* instead of the *matched text itself* by giving the =-ix= ~flag.~
+Useful if you want to select other items from an ~Array~ based on the given index.
+If *no* ~Items~ are selected, ~dmenu~ returns =-1=
+
+** Print Input Text
+: STATUS: applied
+
+This patch adds the =-t= ~flag~ which makes =Return= ~key~ to *ignore selection* and *print the input text* to ~stdout~.
+The flag basically *swaps* the functions of =Return= and =Shift+Return= ~hotkeys~.
+
+This is mainly aimed for use with surf.
 ** Center
 : STATUS: applied
 

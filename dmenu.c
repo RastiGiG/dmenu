@@ -34,6 +34,7 @@ struct item {
 	char *text;
 	struct item *left, *right;
 	int out;
+	int index;
 };
 
 static char numbers[NUMBERSBUFSIZE] = "";
@@ -50,6 +51,8 @@ static struct item *items = NULL;
 static struct item *matches, *matchend;
 static struct item *prev, *curr, *next, *sel;
 static int mon = -1, screen;
+static int use_text_input = 0;
+static int print_index = 0;
 
 static Atom clip, utf8;
 static Display *dpy;
@@ -242,9 +245,9 @@ drawmenu(void)
 		for (item = curr; item != next; item = item->right, i++)
 			drawitem(
 				item,
-				x + ((i / lines) *  ((mw - x) / columns)),
+				x + ((i / lines) *  ((mw - x) / columns)) - promptw,
 				y + (((i % lines) + 1) * bh),
-				(mw - x) / columns
+				(mw) / columns
 			);
 	} else if (matches) {
 		/* draw horizontal list */
@@ -589,7 +592,13 @@ insert:
 		break;
 	case XK_Return:
 	case XK_KP_Enter:
-		puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
+		if (print_index)
+			printf("%d\n", (sel && !(ev->state & ShiftMask)) ? sel->index : -1);
+        if (use_text_input)
+			puts((sel && (ev->state & ShiftMask)) ? sel->text : text);
+		else
+			puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
+
 		if (!(ev->state & ControlMask)) {
 			cleanup();
 			exit(0);
@@ -688,6 +697,7 @@ readstdin(void)
 		if (!(items[i].text = strdup(buf)))
 			die("cannot strdup %u bytes:", strlen(buf) + 1);
 		items[i].out = 0;
+		items[i].index = i;
 		drw_font_getexts(drw->fonts, buf, strlen(buf), &tmpmax, NULL);
 		if (tmpmax > inputw) {
 			inputw = tmpmax;
@@ -704,8 +714,19 @@ static void
 run(void)
 {
 	XEvent ev;
+	int i;
 
 	while (!XNextEvent(dpy, &ev)) {
+		if (preselected) {
+			for (i = 0; i < preselected; i++) {
+				if (sel && sel->right && (sel = sel->right) == next) {
+					curr = next;
+					calcoffsets();
+				}
+			}
+			drawmenu();
+			preselected = 0;
+		}
 		if (XFilterEvent(&ev, win))
 			continue;
 		switch(ev.type) {
@@ -861,7 +882,7 @@ usage(void)
 {
 	fputs("usage: dmenu [-bfivP] [-l lines] [-h height] [-p prompt] [-fn font] [-m monitor]\n"
           "             [-x xoffset] [-y yoffset] [-z width]\n"
-	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]\n", stderr);
+	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid] [-n number]\n", stderr);
 	exit(1);
 }
 
@@ -885,8 +906,12 @@ main(int argc, char *argv[])
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
 			fstrncmp = strncasecmp;
 			fstrstr = cistrstr;
-		} else if (!strcmp(argv[i], "-P"))   /* is the input a password */
+		} else if (!strcmp(argv[i], "-ix"))  /* adds ability to return index in list */
+        	print_index = 1;
+        else if (!strcmp(argv[i], "-P"))   /* is the input a password */
 			passwd = 1;
+        else if (!strcmp(argv[i], "-t")) /* favors text input over selection */
+			use_text_input = 1;
 		else if (i + 1 == argc)
 			usage();
 		/* these options take one argument */
@@ -916,13 +941,15 @@ main(int argc, char *argv[])
 		else if (!strcmp(argv[i], "-nf"))  /* normal foreground color */
 			colors[SchemeNorm][ColFg] = argv[++i];
 		else if (!strcmp(argv[i], "-sb"))  /* selected background color */
-			colors[SchemeSel][ColBg] = argv[++i];
+        	colors[SchemeSel][ColBg] = argv[++i];
 		else if (!strcmp(argv[i], "-sf"))  /* selected foreground color */
-			colors[SchemeSel][ColFg] = argv[++i];
+        	colors[SchemeSel][ColFg] = argv[++i];
 		else if (!strcmp(argv[i], "-w"))   /* embedding window id */
-			embed = argv[++i];
+        	embed = argv[++i];
+        else if (!strcmp(argv[i], "-n"))   /* preselected item */
+        	preselected = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-bw"))
-          border_width = atoi(argv[++i]); /* border width */
+        	border_width = atoi(argv[++i]); /* border width */
 		else
 			usage();
 
