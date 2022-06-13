@@ -133,6 +133,7 @@ xfont_create(Drw *drw, const char *fontname, FcPattern *fontpattern)
 		die("no font specified.");
 	}
 
+    /*-------REMOVED------*/
 	/* Do not allow using color fonts. This is a workaround for a BadLength
 	 * error from Xft with color glyphs. Modelled on the Xterm workaround. See
 	 * https://bugzilla.redhat.com/show_bug.cgi?id=1498269
@@ -140,11 +141,11 @@ xfont_create(Drw *drw, const char *fontname, FcPattern *fontpattern)
 	 * https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=916349
 	 * and lots more all over the internet.
 	 */
-	FcBool iscol;
+	/*FcBool iscol;
 	if(FcPatternGetBool(xfont->pattern, FC_COLOR, 0, &iscol) == FcResultMatch && iscol) {
 		XftFontClose(drw->dpy, xfont);
 		return NULL;
-	}
+	}---REMOVED-----*/
 
 	font = ecalloc(1, sizeof(Fnt));
 	font->xfont = xfont;
@@ -351,7 +352,7 @@ drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, unsigned int lp
 			fcpattern = FcPatternDuplicate(drw->fonts->pattern);
 			FcPatternAddCharSet(fcpattern, FC_CHARSET, fccharset);
 			FcPatternAddBool(fcpattern, FC_SCALABLE, FcTrue);
-			FcPatternAddBool(fcpattern, FC_COLOR, FcFalse);
+			/*FcPatternAddBool(fcpattern, FC_COLOR, FcFalse);*/
 
 			FcConfigSubstitute(NULL, fcpattern, FcMatchPattern);
 			FcDefaultSubstitute(fcpattern);

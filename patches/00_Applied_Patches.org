@@ -61,6 +61,10 @@ Replaces the input text with dots, basically allowing you to type out a password
 Allows you to ~preselect~ *one of the given items* by *giving a number* with the =-n= ~flag.~
 The *input list* is ~zero-based~ (ie: starts with =0=)
 
+** Initial Text
+: STATUS: applied
+
+Adds an option to provide preselected text. Use the =-it= ~flag~ to add a preselection
 ** Printindex
 : STATUS: applied
 
